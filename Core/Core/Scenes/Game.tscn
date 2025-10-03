@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0ahmvcgpdcmr"]
-
-[ext_resource type="Script" uid="uid://7dbt4efwn62b" path="res://Core/Scripts/Game_Script.gd" id="1_kcles"]
-[ext_resource type="Resource" uid="uid://d4gpjejodtup4" path="res://Controllers/Resources/Player_Controller.tres" id="2_1wuet"]
-
-
-[node name="Game" type="Node"]
-script = ExtResource("1_kcles")
-player_controller = ExtResource("2_1wuet")
