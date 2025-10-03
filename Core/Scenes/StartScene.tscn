@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://canjrfuduiiu1"]
+
+[ext_resource type="PackedScene" uid="uid://bsytbtrsoilo3" path="res://Character/Scenes/Player.tscn" id="1_kgr87"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kgr87"]
+
+[sub_resource type="Sky" id="Sky_b7362"]
+sky_material = SubResource("ProceduralSkyMaterial_kgr87")
+
+[sub_resource type="Environment" id="Environment_i2hex"]
+background_mode = 2
+sky = SubResource("Sky_b7362")
+
+[sub_resource type="BoxMesh" id="BoxMesh_kgr87"]
+
+[node name="StartScene" type="Node"]
+
+[node name="Character3D" parent="." instance=ExtResource("1_kgr87")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i2hex")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5969028)
+mesh = SubResource("BoxMesh_kgr87")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6343803, 0, 2.4670663)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8212175, 0, -0.41257286)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../MeshInstance3D2")
