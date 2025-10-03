@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bsytbtrsoilo3"]
 
-[ext_resource type="Script" uid="uid://bs0arnhdfdqi2" path="res://Character/Scripts/Character3D.gd" id="1_hdh21"]
+[ext_resource type="Script" uid="uid://bs0arnhdfdqi2" path="res://Characters/Scripts/Character3D.gd" id="1_hdh21"]
 [ext_resource type="Resource" uid="uid://d4gpjejodtup4" path="res://Controllers/Resources/Player_Controller.tres" id="2_y7pdn"]
 [ext_resource type="Texture2D" uid="uid://b3qyc0gej8mw2" path="res://icon.svg" id="3_hpvg1"]
 
@@ -21,7 +21,7 @@ billboard = 2
 texture = ExtResource("3_hpvg1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 2.102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1721176, 2.102)
 current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
