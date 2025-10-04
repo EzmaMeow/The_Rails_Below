@@ -15,6 +15,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if (player_controller as Controller3D):
 			player_controller.rotate(Vector3.UP,-event.relative.y * 0.01)
 			player_controller.rotate(Vector3.RIGHT,-event.relative.x * 0.01)
+	if event.is_action_pressed("Jump"):
+		if (player_controller as Controller3D):
+			(player_controller as Controller3D).jump(event.get_action_strength('Jump'))
+		
 
 
 func _physics_process(_delta: float) -> void:
