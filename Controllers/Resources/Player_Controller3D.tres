@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Controller3D" load_steps=2 format=3 uid="uid://d4gpjejodtup4"]
+
+[ext_resource type="Script" uid="uid://wf82hjbgnobr" path="res://Controllers/Scripts/Controller3D.gd" id="1_3uglh"]
+
+[resource]
+script = ExtResource("1_3uglh")
+metadata/_custom_type_script = "uid://cseap5ommf4vq"

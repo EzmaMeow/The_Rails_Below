@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://sf833l73p4ho"]
+
+[ext_resource type="Script" uid="uid://dujn33g68u26l" path="res://Objects/Scripts/Moving_Tunnel.gd" id="1_r5v7x"]
+[ext_resource type="PackedScene" uid="uid://cw2ydb72scfya" path="res://Objects/Scenes/TunnelSegment.tscn" id="2_7fq6j"]
+
+[node name="MovingTunnel" type="Node3D"]
+script = ExtResource("1_r5v7x")
+speed = 50.0
+segment_type = ExtResource("2_7fq6j")

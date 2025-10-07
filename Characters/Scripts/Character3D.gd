@@ -14,36 +14,28 @@ class_name Character3D extends CharacterBody3D
 
 @export var state : Character_State = Character_State.new():
 	set(value):
-		#NOTE: states are base on a static state,
-		#but contains dynamic state as well
-		#so the state may or maynot contain a static state ref to acess
-		#read only value.
-		#in short, the state is a copy of an existing state at this level
-		#NOTE: may need to rethink this one. states could be shared, but
-		#it could be messy. if needed to be shared, then maybe embed it in
-		#this clone as a seprate state and have the getters and setters return 
-		#that source
-		state = value.duplicate()
+		if (value):
+			if (value.unique):
+				state = value.duplicate()
+				return
+		state = value
+		
 @export var movement : Character_Movement = Character_Movement.new()
-		
-@export var speed : float = 8
-		
-var move_direction : Vector3
+
+@export var camera : Camera3D
+
 var jump_force : float = 0.0
 
 func on_message_received(message:Variant):
-	if (message):
-		#if message.has('Jump') :#and is_on_floor():
-			#jump_force = 10.0
-	#		var input_direction : Vector2 = message['direction']
-	#		#move_direction = Vector3(input_direction.x, input_direction.y,0.0)
-	#		move_direction = Vector3(input_direction.y,0.0,-input_direction.x)
-		pass
+	if (message == 'exiting' and camera):
+		camera.current = false
+	elif (message == 'entering' and camera):
+		camera.current = true
 
 func on_rotated(axis:Vector3,angle:float):
-	if (axis==Vector3.UP):
-		$Camera3D.rotate_x(angle)
-		$Camera3D.rotation.x = clamp($Camera3D.rotation.x, deg_to_rad(-30), deg_to_rad(60))
+	if (axis==Vector3.UP and camera):
+		camera.rotate_x(angle)
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-30), deg_to_rad(60))
 		return
 	if (axis==Vector3.RIGHT):
 		rotate_y(angle)
@@ -60,7 +52,12 @@ func _physics_process(_delta: float) -> void:
 				)
 			velocity += Vector3(0.0,jump_force,0.0)
 			velocity = velocity.rotated(Vector3(0,1,0).normalized(),rotation.y)
+			#Note: unable to get moving tunnel from move and slide results since
+			#the mesh owner and parent is its mesh instance handler. may need to fake
+			#it by using a collsion layer for out of bound and then have the level
+			#yet the player down the tunnel (and slow the tunnel(train) speed)
 			move_and_slide()
+			
 			
 			if (!is_on_floor()):
 				#appling fake gravity for now

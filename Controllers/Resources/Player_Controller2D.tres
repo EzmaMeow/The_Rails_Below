@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Controller2D" load_steps=2 format=3 uid="uid://d2ekwkehv68ur"]
+
+[ext_resource type="Script" uid="uid://kikxnt4mlw8d" path="res://Controllers/Scripts/Controller2D.gd" id="1_sb0xc"]
+
+[resource]
+script = ExtResource("1_sb0xc")
+metadata/_custom_type_script = "uid://cseap5ommf4vq"

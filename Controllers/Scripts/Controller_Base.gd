@@ -11,3 +11,5 @@ func send_clients_message(message:Variant):
 	
 func send_handler_message(message:Variant):
 	handler_message_received.emit(message)
+#when ever the controller is done being set up,
+#this should be called. could also be called

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsytbtrsoilo3"]
+
+[ext_resource type="Script" uid="uid://bs0arnhdfdqi2" path="res://Characters/Scripts/Character3D.gd" id="1_hdh21"]
+[ext_resource type="Resource" uid="uid://d4gpjejodtup4" path="res://Controllers/Resources/Player_Controller3D.tres" id="2_y7pdn"]
+[ext_resource type="Texture2D" uid="uid://b3qyc0gej8mw2" path="res://icon.svg" id="3_hpvg1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_waixg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ompc"]
+
+[node name="Character3D" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
+script = ExtResource("1_hdh21")
+controller = ExtResource("2_y7pdn")
+camera = NodePath("Camera3D")
+metadata/_custom_type_script = "uid://bs0arnhdfdqi2"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_waixg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7ompc")
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.2132379, 0)
+visible = false
+billboard = 2
+texture = ExtResource("3_hpvg1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1721176, 2.102)
+current = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]

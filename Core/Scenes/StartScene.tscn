@@ -1,6 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://canjrfuduiiu1"]
+[gd_scene load_steps=13 format=3 uid="uid://canjrfuduiiu1"]
 
-[ext_resource type="PackedScene" uid="uid://bsytbtrsoilo3" path="res://Characters/Scenes/Player.tscn" id="1_kgr87"]
+[ext_resource type="PackedScene" uid="uid://bsytbtrsoilo3" path="res://Characters/Scenes/Player3D.tscn" id="1_kgr87"]
+[ext_resource type="PackedScene" uid="uid://sf833l73p4ho" path="res://Objects/Scenes/MovingTunnel.tscn" id="3_i2hex"]
+[ext_resource type="PackedScene" uid="uid://bldb21uaagsf3" path="res://Characters/Scenes/Player2D.tscn" id="3_x37uu"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kgr87"]
+size = Vector2(10, 10)
+subdivide_width = 2
+subdivide_depth = 2
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kgr87"]
+points = PackedVector3Array(5.077377, 0.07933401, 5.077377, -5.077377, -0.07933401, -5.077377, -5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, -5.077377, -5.077377, -0.07933401, 5.077377, -5.077377, 0.07933401, 5.077377, 5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, 5.077377)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kgr87"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b7362"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kgr87"]
 
@@ -11,50 +26,74 @@ sky_material = SubResource("ProceduralSkyMaterial_kgr87")
 background_mode = 2
 sky = SubResource("Sky_b7362")
 
-[sub_resource type="BoxMesh" id="BoxMesh_kgr87"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_llx6k"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b7362"]
-points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_kgr87"]
-size = Vector2(10, 10)
-subdivide_width = 2
-subdivide_depth = 2
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kgr87"]
-points = PackedVector3Array(5.077377, 0.07933401, 5.077377, -5.077377, -0.07933401, -5.077377, -5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, -5.077377, -5.077377, -0.07933401, 5.077377, -5.077377, 0.07933401, 5.077377, 5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, 5.077377)
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pyebi"]
+size = Vector2(20, 20)
 
 [node name="StartScene" type="Node"]
 
-[node name="Character3D" parent="." instance=ExtResource("1_kgr87")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0045921, 0)
+[node name="3DLevel" type="Node3D" parent="." groups=["3DLevel"]]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_i2hex")
+[node name="MovingTunnel" parent="3DLevel" instance=ExtResource("3_i2hex")]
+segment_count = 100
 
-[node name="SimpleBox" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4629228, -2.5969028)
-mesh = SubResource("BoxMesh_kgr87")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="SimpleBox"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleBox/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_b7362")
-
-[node name="SimpleBox2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41647, 0.4629228, 2.7763996)
-mesh = SubResource("BoxMesh_kgr87")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="SimpleBox2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleBox2/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_b7362")
-
-[node name="SimpleFloor" type="MeshInstance3D" parent="."]
+[node name="SimpleFloor" type="MeshInstance3D" parent="3DLevel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 mesh = SubResource("PlaneMesh_kgr87")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SimpleFloor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="3DLevel/SimpleFloor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleFloor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3DLevel/SimpleFloor/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_kgr87")
+
+[node name="SimpleBox2" type="MeshInstance3D" parent="3DLevel/SimpleFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41647, 0.4629228, 2.7763996)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="3DLevel/SimpleFloor/SimpleBox2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3DLevel/SimpleFloor/SimpleBox2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b7362")
+
+[node name="SimpleBox" type="MeshInstance3D" parent="3DLevel/SimpleFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4629228, -2.5969028)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="3DLevel/SimpleFloor/SimpleBox"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3DLevel/SimpleFloor/SimpleBox/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b7362")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="3DLevel"]
+environment = SubResource("Environment_i2hex")
+
+[node name="Character3D" parent="3DLevel" instance=ExtResource("1_kgr87")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0045921, 0)
+
+[node name="2DLevel" type="Node2D" parent="." groups=["2DLevel"]]
+visible = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="2DLevel"]
+position = Vector2(562, 151)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DLevel/StaticBody2D"]
+shape = SubResource("RectangleShape2D_llx6k")
+
+[node name="Sprite2D" type="Sprite2D" parent="2DLevel/StaticBody2D"]
+texture = SubResource("PlaceholderTexture2D_pyebi")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="2DLevel"]
+position = Vector2(67, 412)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DLevel/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_llx6k")
+
+[node name="Sprite2D" type="Sprite2D" parent="2DLevel/StaticBody2D2"]
+texture = SubResource("PlaceholderTexture2D_pyebi")
+
+[node name="Player2d" parent="2DLevel" instance=ExtResource("3_x37uu")]
+position = Vector2(263, 160)
