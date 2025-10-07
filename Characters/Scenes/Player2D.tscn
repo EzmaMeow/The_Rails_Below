@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bldb21uaagsf3"]
+[gd_scene load_steps=8 format=3 uid="uid://bldb21uaagsf3"]
 
 [ext_resource type="Script" uid="uid://dieeudwhj8blw" path="res://Characters/Scripts/Character2D.gd" id="1_jl12s"]
 [ext_resource type="Texture2D" uid="uid://b3qyc0gej8mw2" path="res://icon.svg" id="2_ggryl"]
 [ext_resource type="Resource" uid="uid://d2ekwkehv68ur" path="res://Controllers/Resources/Player_Controller2D.tres" id="2_jrbxw"]
 [ext_resource type="Script" uid="uid://bgxnrxj2reuv1" path="res://Characters/Character_States/Scripts/Character_State.gd" id="3_jrbxw"]
+[ext_resource type="Script" uid="uid://bcb5a2c5afans" path="res://Core/Scripts/2DGameCamera.gd" id="5_nincf"]
 
 [sub_resource type="Resource" id="Resource_nincf"]
 script = ExtResource("3_jrbxw")
@@ -26,4 +27,5 @@ shape = SubResource("RectangleShape2D_jrbxw")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ggryl")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["Game2D"]]
+script = ExtResource("5_nincf")

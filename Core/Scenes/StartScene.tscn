@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://canjrfuduiiu1"]
+[gd_scene load_steps=16 format=3 uid="uid://canjrfuduiiu1"]
 
 [ext_resource type="PackedScene" uid="uid://bsytbtrsoilo3" path="res://Characters/Scenes/Player3D.tscn" id="1_kgr87"]
+[ext_resource type="Script" uid="uid://cd0g7asko0pm2" path="res://Core/Scripts/3DGame.gd" id="1_pyebi"]
 [ext_resource type="PackedScene" uid="uid://sf833l73p4ho" path="res://Objects/Scenes/MovingTunnel.tscn" id="3_i2hex"]
 [ext_resource type="PackedScene" uid="uid://bldb21uaagsf3" path="res://Characters/Scenes/Player2D.tscn" id="3_x37uu"]
+[ext_resource type="Script" uid="uid://0ky7j2g8qmuw" path="res://Core/Scripts/2DGame.gd" id="4_6hyx1"]
+[ext_resource type="PackedScene" uid="uid://b8d6qnfkeijga" path="res://Core/Scenes/HUD.tscn" id="4_x37uu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kgr87"]
 size = Vector2(10, 10)
@@ -31,9 +34,12 @@ sky = SubResource("Sky_b7362")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pyebi"]
 size = Vector2(20, 20)
 
-[node name="StartScene" type="Node"]
+[node name="StartScene" type="Node" groups=["MainGame"]]
 
-[node name="3DLevel" type="Node3D" parent="." groups=["3DLevel"]]
+[node name="Hud" parent="." instance=ExtResource("4_x37uu")]
+
+[node name="3DLevel" type="Node3D" parent="." groups=["Game3D"]]
+script = ExtResource("1_pyebi")
 
 [node name="MovingTunnel" parent="3DLevel" instance=ExtResource("3_i2hex")]
 segment_count = 100
@@ -74,8 +80,9 @@ environment = SubResource("Environment_i2hex")
 [node name="Character3D" parent="3DLevel" instance=ExtResource("1_kgr87")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0045921, 0)
 
-[node name="2DLevel" type="Node2D" parent="." groups=["2DLevel"]]
+[node name="2DLevel" type="Node2D" parent="." groups=["Game2D"]]
 visible = false
+script = ExtResource("4_6hyx1")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="2DLevel"]
 position = Vector2(562, 151)

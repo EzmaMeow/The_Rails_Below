@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8d6qnfkeijga"]
+
+[ext_resource type="Script" uid="uid://m1h3r3k70nna" path="res://Core/Scripts/HUD.gd" id="1_yxia8"]
+
+[node name="Hud" type="CanvasLayer" groups=["HUD"]]
+process_mode = 3
+script = ExtResource("1_yxia8")
+
+[node name="DebugInfo" type="Label" parent="."]
+offset_right = 236.0
+offset_bottom = 229.0

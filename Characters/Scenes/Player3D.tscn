@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsytbtrsoilo3"]
+[gd_scene load_steps=7 format=3 uid="uid://bsytbtrsoilo3"]
 
 [ext_resource type="Script" uid="uid://bs0arnhdfdqi2" path="res://Characters/Scripts/Character3D.gd" id="1_hdh21"]
 [ext_resource type="Resource" uid="uid://d4gpjejodtup4" path="res://Controllers/Resources/Player_Controller3D.tres" id="2_y7pdn"]
 [ext_resource type="Texture2D" uid="uid://b3qyc0gej8mw2" path="res://icon.svg" id="3_hpvg1"]
+[ext_resource type="Script" uid="uid://b64hoalc8whl1" path="res://Core/Scripts/3DGameCamera.gd" id="4_teitn"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_waixg"]
 
@@ -26,8 +27,9 @@ visible = false
 billboard = 2
 texture = ExtResource("3_hpvg1")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." groups=["Game3D"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1721176, 2.102)
 current = true
+script = ExtResource("4_teitn")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
