@@ -13,3 +13,6 @@ The file structure could chang, but I may try to keep it like this to allow
 more independent systems to be designed. Note that sometimes scenes may be located
 in core instead of their related group, but this should only for scenes that depend
 on other custom systems.
+
+TODO: Maybe reimport the tunnel meshes with uv mapping that have padding around 
+the islands so there is no bleeding if sampling.

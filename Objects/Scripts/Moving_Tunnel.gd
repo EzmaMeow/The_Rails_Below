@@ -27,6 +27,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var half_size := segment_length * 0.5 * segment_count
 	if (step > segment_length):
+		return
 		step = 0
 	else:
 		step += speed * delta

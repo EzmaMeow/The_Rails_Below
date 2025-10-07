@@ -1,11 +1,11 @@
 [gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://wf154a2cpvaj"]
 
-[ext_resource type="Texture2D" uid="uid://pjp4m4m2jki5" path="res://Assets/TunnelSegmentDetailed_Material.png" id="1_4a1ql"]
+[ext_resource type="Texture2D" uid="uid://pjp4m4m2jki5" path="res://Assets/TunnelSegmentTexture.png" id="1_4a1ql"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h3p2q"]
 resource_name = "Material.001"
 albedo_texture = ExtResource("1_4a1ql")
-roughness = 0.5
+texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ide04"]
 _surfaces = [{
