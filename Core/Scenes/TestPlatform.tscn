@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://x8a020msrbc7"]
+
+[ext_resource type="Script" uid="uid://bk37rjye0vsga" path="res://Core/Scripts/test_platform.gd" id="1_pgeod"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kgr87"]
+size = Vector2(10, 10)
+subdivide_width = 2
+subdivide_depth = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pgeod"]
+size = Vector3(10.77, 10, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kgr87"]
+points = PackedVector3Array(5.077377, 0.07933401, 5.077377, -5.077377, -0.07933401, -5.077377, -5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, -5.077377, -5.077377, -0.07933401, 5.077377, -5.077377, 0.07933401, 5.077377, 5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, 5.077377)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kgr87"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b7362"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[node name="TestPlatform" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_kgr87")
+skeleton = NodePath("")
+script = ExtResource("1_pgeod")
+
+[node name="SafeArea3D" type="Area3D" parent="."]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SafeArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.42, -0.375)
+shape = SubResource("BoxShape3D_pgeod")
+
+[node name="StaticBody3D" type="AnimatableBody3D" parent="."]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_kgr87")
+
+[node name="SimpleBox2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3202772, 1.4629228, 2.7972226)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SimpleBox2"]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleBox2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b7362")
+
+[node name="SimpleBox" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.4629228, -2.5969028)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SimpleBox"]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleBox/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b7362")
+
+[node name="SimpleWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 10.89, 0, 0, 0, 10.4, -5.391345, 5.462923, -0.20277739)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SimpleWall"]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleWall/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b7362")
+
+[node name="SimpleWall2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 10.89, 0, 0, 0, 10.4, 5.608655, 5.462923, -0.20277739)
+mesh = SubResource("BoxMesh_kgr87")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="SimpleWall2"]
+disable_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SimpleWall2/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_b7362")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+omni_range = 4096.0
+
+[connection signal="body_entered" from="SafeArea3D" to="." method="_on_safe_area_entered"]
+[connection signal="body_exited" from="SafeArea3D" to="." method="_on_safe_area_exited"]

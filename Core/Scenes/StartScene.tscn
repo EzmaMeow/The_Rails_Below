@@ -1,24 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://canjrfuduiiu1"]
+[gd_scene load_steps=14 format=3 uid="uid://canjrfuduiiu1"]
 
+[ext_resource type="PackedScene" uid="uid://d2p7ha6lritfw" path="res://Core/Scenes/GUI.tscn" id="1_6hyx1"]
 [ext_resource type="PackedScene" uid="uid://bsytbtrsoilo3" path="res://Characters/Scenes/Player3D.tscn" id="1_kgr87"]
 [ext_resource type="Script" uid="uid://cd0g7asko0pm2" path="res://Core/Scripts/3DGame.gd" id="1_pyebi"]
 [ext_resource type="PackedScene" uid="uid://sf833l73p4ho" path="res://Objects/Scenes/MovingTunnel.tscn" id="3_i2hex"]
 [ext_resource type="PackedScene" uid="uid://bldb21uaagsf3" path="res://Characters/Scenes/Player2D.tscn" id="3_x37uu"]
 [ext_resource type="Script" uid="uid://0ky7j2g8qmuw" path="res://Core/Scripts/2DGame.gd" id="4_6hyx1"]
 [ext_resource type="PackedScene" uid="uid://b8d6qnfkeijga" path="res://Core/Scenes/HUD.tscn" id="4_x37uu"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_kgr87"]
-size = Vector2(10, 10)
-subdivide_width = 2
-subdivide_depth = 2
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kgr87"]
-points = PackedVector3Array(5.077377, 0.07933401, 5.077377, -5.077377, -0.07933401, -5.077377, -5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, -5.077377, -5.077377, -0.07933401, 5.077377, -5.077377, 0.07933401, 5.077377, 5.077377, 0.07933401, -5.077377, 5.077377, -0.07933401, 5.077377)
-
-[sub_resource type="BoxMesh" id="BoxMesh_kgr87"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b7362"]
-points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+[ext_resource type="PackedScene" uid="uid://x8a020msrbc7" path="res://Core/Scenes/TestPlatform.tscn" id="5_svlc7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kgr87"]
 
@@ -27,6 +16,7 @@ sky_material = SubResource("ProceduralSkyMaterial_kgr87")
 
 [sub_resource type="Environment" id="Environment_i2hex"]
 background_mode = 2
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_b7362")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_llx6k"]
@@ -36,6 +26,8 @@ size = Vector2(20, 20)
 
 [node name="StartScene" type="Node" groups=["MainGame"]]
 
+[node name="GUI" parent="." instance=ExtResource("1_6hyx1")]
+
 [node name="Hud" parent="." instance=ExtResource("4_x37uu")]
 
 [node name="3DLevel" type="Node3D" parent="." groups=["Game3D"]]
@@ -44,35 +36,8 @@ script = ExtResource("1_pyebi")
 [node name="MovingTunnel" parent="3DLevel" instance=ExtResource("3_i2hex")]
 segment_count = 100
 
-[node name="SimpleFloor" type="MeshInstance3D" parent="3DLevel"]
+[node name="SimpleFloor" parent="3DLevel" instance=ExtResource("5_svlc7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-mesh = SubResource("PlaneMesh_kgr87")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="3DLevel/SimpleFloor"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="3DLevel/SimpleFloor/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_kgr87")
-
-[node name="SimpleBox2" type="MeshInstance3D" parent="3DLevel/SimpleFloor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.41647, 0.4629228, 2.7763996)
-mesh = SubResource("BoxMesh_kgr87")
-skeleton = NodePath("../../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="3DLevel/SimpleFloor/SimpleBox2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="3DLevel/SimpleFloor/SimpleBox2/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_b7362")
-
-[node name="SimpleBox" type="MeshInstance3D" parent="3DLevel/SimpleFloor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4629228, -2.5969028)
-mesh = SubResource("BoxMesh_kgr87")
-skeleton = NodePath("../../..")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="3DLevel/SimpleFloor/SimpleBox"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="3DLevel/SimpleFloor/SimpleBox/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_b7362")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="3DLevel"]
 environment = SubResource("Environment_i2hex")

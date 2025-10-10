@@ -10,12 +10,16 @@ var player_controller: Controller_Base
 var cooldown : float = 0.0
 
 func _unhandled_input(event: InputEvent) -> void:
-	if (event is InputEventMouseButton):
+	if (event is InputEventMouseButton and !get_tree().paused):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif (event.is_action_pressed("ui_cancel")):
+	#elif (event.is_action_pressed("ui_cancel")):
+		#NOTE: Menu is overriding esc and pause is being used
+		#to check if in menu or not
+		#this may change if a menu do not need to be pause
+		#like an inventory, but that may be handle elsewhere/diffrently
 		#TODO: add more check so this work with menu or the correct mode
 		#like have a state for if in menu or not and then handle the cases that way
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if (Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED 
 		and event is InputEventMouseMotion
 		and !get_tree().paused
@@ -46,10 +50,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("Menu")):
 		if (get_tree().paused):
 			get_tree().paused = false
-			get_tree().call_group("GUI", "active",true)
+			#get_tree().call_group("GUI", "active",true)
 		else:
 			get_tree().paused = true
-			get_tree().call_group("GUI", "active",false)
+			#get_tree().call_group("GUI", "active",false)
 		
 		
 

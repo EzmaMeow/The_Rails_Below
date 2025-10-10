@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var active_process_mode := Node.PROCESS_MODE_INHERIT
+@export var active_process_mode := Node.PROCESS_MODE_PAUSABLE
 @export var inactive_process_mode := Node.PROCESS_MODE_DISABLED
 
 func active(set_active:bool = true):

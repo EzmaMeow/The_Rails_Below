@@ -10,5 +10,4 @@ func _process(delta: float) -> void:
 	if get_viewport().get_camera_2d() and !is_3D:
 		if get_viewport().get_camera_2d().is_current():
 			debug_text += str(' 2d:',get_viewport().get_camera_2d().global_position)
-	get_tree().paused 
 	$DebugInfo.text = str(debug_text, ' paused:', get_tree().paused)
