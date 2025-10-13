@@ -9,11 +9,21 @@ class_name Moving_Tunnel extends Node3D
 		update_scale()
 @export var segment_type : PackedScene
 @export var segment_count : int = 10
+
+@export var local_physic : Physic_State3D = Physic_State3D.new()
 var segments : Array[Node3D]
 		
 var step:float = 0.0
 
 var breaking = 0.0
+
+#this is to be given to any vaild node becomes part of its
+#space as well as removed when not. may use an object or resource in the future
+#but dict for prototyping
+#gravity is a modifier of the gravity
+#not sure if it should be a fixed value instead. I want to use the
+#system gravity if possible
+
 
 #NOTE: array may be better on size, but removing elements can be costly
 #if handling many. A diffrent type(like dictionary) or a diffrent system
@@ -30,18 +40,40 @@ func _ready() -> void:
 		add_child(new_segment)
 		segments.append(new_segment)
 		new_segment.scale.z = segment_length * 0.5
+	
+func add_local_physic(body:PhysicsBody3D):
+	var local_physics : Dictionary = body.get_meta('local_physics',{})
+	local_physics[self] = local_physic
+	body.set_meta('local_physics',local_physics)
+
+func remove_local_physic(body:PhysicsBody3D):
+	var local_physics : Dictionary = body.get_meta('local_physics',{})
+	local_physics.erase(self)
+	if local_physics.is_empty():
+		body.remove_meta('local_physics')
+		return
+	body.set_meta('local_physics',local_physics)
 		
 func body_enter_safe_area(body: Node3D):
+	if (!body):
+		print_debug(self, ' null body ref in body_enter_safe_area')
+		return
 	if (body as PhysicsBody3D):
 		unsafe_bodies.erase(body)
+		remove_local_physic(body)
 	#NOTE: temp way to force it to resume moving
 	if (body as Character3D):
 		breaking = 0.0
 	print_debug(body, 'enter safe area')
 	
 func body_exit_safe_area(body: Node3D):
+	if (!body):
+		print_debug(self, ' null body ref in body_enter_safe_area')
+		return
+
 	if (body as PhysicsBody3D):
 		unsafe_bodies.append(body)
+		add_local_physic(body)
 	#NOTE: temp way to force it to break when a character is unsafe
 	if (body as Character3D):
 		breaking = 0.1
@@ -55,8 +87,9 @@ func _physics_process(delta: float) -> void:
 	elif (breaking > speed):
 		breaking = speed
 		
-	for body in unsafe_bodies:
-		body.position += Vector3(0.0,0.0,current_speed)
+	local_physic.velocity = Vector3(0.0,0.0,speed - breaking)
+	#for body in unsafe_bodies:
+	#	body.position += Vector3(0.0,0.0,current_speed)
 	if (step > segment_length):
 		step = 0
 	else:
